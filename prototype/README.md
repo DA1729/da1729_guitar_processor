@@ -6,6 +6,7 @@ production-like structured codebase for guitar effects processing
 
 - audio i/o with normalization
 - distortion effects (fuzz, overdrive)
+- delay/echo effect
 - time/frequency domain analysis
 - effect chaining via processor class
 
@@ -38,15 +39,17 @@ save_audio('output.wav', processed_signal, fs, verbose=True)
 ### effects
 
 ```python
-from prototype import hard_clip, soft_clip
+from prototype import hard_clip, soft_clip, delay
 
 fuzz = hard_clip(signal, gain=20.0, threshold=0.3)
 overdrive = soft_clip(signal, gain=5.0)
+echo = delay(signal, fs, delay_ms=400.0, feedback=0.6, mix=0.5)
 ```
 
 **parameters:**
 - `hard_clip(signal, gain=10.0, threshold=0.5)` - fuzz/hard clipping
 - `soft_clip(signal, gain=10.0)` - overdrive/tanh saturation
+- `delay(signal, fs, delay_ms=400.0, feedback=0.6, mix=0.5)` - echo/delay effect
 
 ### analysis
 
@@ -64,11 +67,12 @@ plot_comparison({'clean': signal, 'fuzz': fuzz}, fs, save_path='plot.png')
 ### processor (effect chaining)
 
 ```python
-from prototype import AudioProcessor, hard_clip, soft_clip
+from prototype import AudioProcessor, hard_clip, soft_clip, delay
 
 proc = AudioProcessor(fs, signal)
 proc.apply(hard_clip, 'fuzz', gain=20.0, threshold=0.3)
 proc.apply(soft_clip, 'overdrive', gain=3.0)
+proc.apply(delay, 'echo', fs=fs, delay_ms=300.0, feedback=0.5, mix=0.4)
 
 result = proc.get_signal()
 history = proc.get_history()  # dict of all processed stages

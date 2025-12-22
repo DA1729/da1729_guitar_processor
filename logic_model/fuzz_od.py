@@ -71,7 +71,7 @@ idx_limit = int(limit * fft_slice_len / fs)
 plt.plot(freqs[:idx_limit], clean_fft[:idx_limit], label='Clean', color='green', alpha=0.5)
 plt.plot(freqs[:idx_limit], fuzz_fft[:idx_limit], label='Fuzz (Added Harmonics)', color='red', alpha=0.5)
 
-plt.title('Frequency Domain: Distortion adds "High Frequency" content')
+plt.title('Frequency Domain')
 plt.xlabel('Frequency (Hz)')
 plt.legend()
 plt.grid(True)
