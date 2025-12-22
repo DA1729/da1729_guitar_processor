@@ -7,6 +7,7 @@ production-like structured codebase for guitar effects processing
 - audio i/o with normalization
 - distortion effects (fuzz, overdrive)
 - delay/echo effect
+- biquad filters (lowpass, highpass, bandpass)
 - time/frequency domain analysis
 - effect chaining via processor class
 
@@ -16,6 +17,7 @@ production-like structured codebase for guitar effects processing
 prototype/
 ├── audio_io.py     # load/save/normalize audio
 ├── effects.py      # guitar effects
+├── filters.py      # biquad filters
 ├── analysis.py     # visualization tools
 └── processor.py    # effect chain processor
 ```
@@ -57,6 +59,34 @@ echo = delay(signal, fs, delay_ms=400.0, feedback=0.6, mix=0.5)
 - `delay_ms` (default: 400.0) - time between echoes in milliseconds
 - `feedback` (default: 0.6) - repeat strength [0.0-1.0], higher = more repeats
 - `mix` (default: 0.5) - wet/dry blend [0.0-1.0], 0.0=dry only, 1.0=wet only
+
+### filters
+
+```python
+from prototype import lowpass, highpass, bandpass, biquad
+
+lp_signal = lowpass(signal, fs, cutoff_freq=800.0, order=2)
+hp_signal = highpass(signal, fs, cutoff_freq=100.0, order=2)
+bp_signal = bandpass(signal, fs, low_freq=300.0, high_freq=3000.0, order=2)
+custom = biquad(signal, b0, b1, b2, a1, a2)
+```
+
+**lowpass** - butterworth lowpass filter, removes high frequencies
+- `cutoff_freq` (default: 800.0) - frequency in Hz, above this gets attenuated
+- `order` (default: 2) - filter steepness, higher = sharper rolloff
+
+**highpass** - butterworth highpass filter, removes low frequencies
+- `cutoff_freq` (default: 800.0) - frequency in Hz, below this gets attenuated
+- `order` (default: 2) - filter steepness, higher = sharper rolloff
+
+**bandpass** - butterworth bandpass filter, keeps frequency range
+- `low_freq` (default: 300.0) - lower cutoff in Hz
+- `high_freq` (default: 3000.0) - upper cutoff in Hz
+- `order` (default: 2) - filter steepness, higher = sharper rolloff
+
+**biquad** - direct biquad filter implementation
+- `b0, b1, b2` - feedforward coefficients
+- `a1, a2` - feedback coefficients
 
 ### analysis
 
