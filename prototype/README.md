@@ -7,6 +7,7 @@ production-like structured codebase for guitar effects processing
 - audio i/o with normalization
 - distortion effects (fuzz, overdrive)
 - delay/echo effect
+- cabinet simulation with IR convolution
 - biquad filters (lowpass, highpass, bandpass)
 - time/frequency domain analysis
 - effect chaining via processor class
@@ -59,6 +60,14 @@ echo = delay(signal, fs, delay_ms=400.0, feedback=0.6, mix=0.5)
 - `delay_ms` (default: 400.0) - time between echoes in milliseconds
 - `feedback` (default: 0.6) - repeat strength [0.0-1.0], higher = more repeats
 - `mix` (default: 0.5) - wet/dry blend [0.0-1.0], 0.0=dry only, 1.0=wet only
+
+**cabinet** - speaker cabinet simulation using impulse response convolution
+- `ir` (default: None) - custom impulse response array, None = use synthetic IR
+- `duration_ms` (default: 20) - synthetic IR duration, only used if ir=None
+
+**generate_cab_ir** - creates synthetic cabinet impulse response
+- `fs` - sample rate
+- `duration_ms` (default: 20) - IR length in milliseconds
 
 ### filters
 
