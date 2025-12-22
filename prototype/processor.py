@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class AudioProcessor:
+class guitar_processor:
     def __init__(self, fs, signal):
         self.fs = fs
         self.signal = signal

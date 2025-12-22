@@ -67,9 +67,9 @@ plot_comparison({'clean': signal, 'fuzz': fuzz}, fs, save_path='plot.png')
 ### processor (effect chaining)
 
 ```python
-from prototype import AudioProcessor, hard_clip, soft_clip, delay
+from prototype import guitar_processor, hard_clip, soft_clip, delay
 
-proc = AudioProcessor(fs, signal)
+proc = guitar_processor(fs, signal)
 proc.apply(hard_clip, 'fuzz', gain=20.0, threshold=0.3)
 proc.apply(soft_clip, 'overdrive', gain=3.0)
 proc.apply(delay, 'echo', fs=fs, delay_ms=300.0, feedback=0.5, mix=0.4)
@@ -80,7 +80,7 @@ proc.reset()  # back to input signal
 ```
 
 **parameters:**
-- `AudioProcessor(fs, signal)`
+- `guitar_processor(fs, signal)`
 - `apply(effect_fn, name=None, **kwargs)` - chain effects, returns self
 - `get_signal()` - returns current processed signal
 - `get_history()` - returns dict of all named stages
