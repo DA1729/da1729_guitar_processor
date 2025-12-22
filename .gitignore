@@ -1,0 +1,133 @@
+############################
+# General / OS / Editor
+############################
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+
+.vscode/
+.idea/
+*.iml
+
+############################
+# Python
+############################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+.env
+.venv/
+venv/
+ENV/
+
+pip-wheel-metadata/
+dist/
+build/
+.eggs/
+*.egg-info/
+
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+############################
+# C / C++
+############################
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.out
+*.exe
+
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+build/
+bin/
+obj/
+
+############################
+# FPGA / HDL (General)
+############################
+*.vcd
+*.fst
+*.wlf
+*.lxt
+*.vvp
+
+############################
+# Vivado / Xilinx
+############################
+*.jou
+*.log
+*.str
+*.xpr
+*.pb
+*.xml
+
+# Vivado project folders
+*.cache/
+*.runs/
+*.sim/
+*.hw/
+.ip_user_files/
+
+# Generated IP
+*.gen/
+*.srcs/sources_1/ip/
+
+# Bitstreams / binaries
+*.bit
+*.bin
+*.mcs
+*.ltx
+
+############################
+# Chisel / Scala / sbt
+############################
+target/
+project/target/
+project/project/
+
+.metals/
+.bsp/
+.bloop/
+
+############################
+# Verilator / Simulation
+############################
+obj_dir/
+verilator.log
+
+############################
+# Waveforms / Dumps
+############################
+*.gtkw
+*.fst
+*.vcd
+
+############################
+# Documentation build
+############################
+docs/_build/
+site/
+
+############################
+# Temporary / Scratch
+############################
+tmp/
+temp/
+scratch/
+
