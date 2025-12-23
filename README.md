@@ -12,6 +12,7 @@ python-based guitar effects processor with production-ready DSP algorithms. supp
 guitar_processor/
 ├── logic_model/        # experimental DSP algorithms (rough work)
 ├── prototype/          # production-ready python library
+├── realtime_cpp/       # real-time c++ processor
 └── README.md           # this file
 ```
 
@@ -24,6 +25,11 @@ guitar_processor/
 - modular effect library
 - clean API with documentation
 - effect chaining processor
+
+**realtime_cpp/** - real-time audio processing
+- low-latency c++ implementation
+- portaudio for audio i/o
+- sample-by-sample processing
 
 ## setup
 
