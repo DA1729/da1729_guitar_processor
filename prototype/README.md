@@ -8,6 +8,7 @@ production-like structured codebase for guitar effects processing
 - distortion effects (fuzz, overdrive)
 - delay/echo effect
 - cabinet simulation with IR convolution
+- dynamics processing (compressor, noise gate)
 - biquad filters (lowpass, highpass, bandpass)
 - time/frequency domain analysis
 - effect chaining via processor class
@@ -19,6 +20,7 @@ prototype/
 ├── audio_io.py     # load/save/normalize audio
 ├── effects.py      # guitar effects
 ├── filters.py      # biquad filters
+├── dynamics.py     # compressor, gate
 ├── analysis.py     # visualization tools
 └── processor.py    # effect chain processor
 ```
@@ -68,6 +70,36 @@ echo = delay(signal, fs, delay_ms=400.0, feedback=0.6, mix=0.5)
 **generate_cab_ir** - creates synthetic cabinet impulse response
 - `fs` - sample rate
 - `duration_ms` (default: 20) - IR length in milliseconds
+
+### dynamics
+
+```python
+from prototype import compressor, noise_gate
+
+compressed = compressor(signal, fs, threshold_db=-20.0, ratio=4.0,
+                        attack_ms=5.0, release_ms=50.0, makeup_gain_db=5.0)
+gated = noise_gate(signal, fs, threshold_db=-40.0, attack_ms=2.0,
+                   release_ms=100.0, hold_ms=10.0)
+```
+
+**compressor** - dynamic range compression, evens out volume
+- `threshold_db` (default: -20.0) - level where compression starts, lower = more compression
+- `ratio` (default: 4.0) - compression amount, higher = more squashing (1.0=off, 20.0=limiting)
+- `attack_ms` (default: 5.0) - how fast compression engages, lower = faster
+- `release_ms` (default: 50.0) - how fast compression releases, higher = smoother
+- `makeup_gain_db` (default: 5.0) - output boost to compensate volume loss
+
+**noise_gate** - removes noise during silence, cuts signal below threshold
+- `threshold_db` (default: -40.0) - noise floor cutoff, signals below this get muted
+- `attack_ms` (default: 2.0) - gate opening speed, lower = faster
+- `release_ms` (default: 100.0) - gate closing speed, higher = smoother fade
+- `hold_ms` (default: 10.0) - minimum time gate stays open
+
+**compute_envelope** - envelope follower utility (used internally)
+- `signal` - input audio array
+- `fs` - sample rate
+- `attack_ms` - attack time
+- `release_ms` - release time
 
 ### filters
 
